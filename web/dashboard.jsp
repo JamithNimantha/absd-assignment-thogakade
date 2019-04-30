@@ -9,6 +9,13 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%-- USED JAVA TAG LIBRARY --%>
+
+<script type="application/javascript">
+    function showAlert() {
+        alert("New Item Added !");
+    }
+</script>
 <%
 
     List<String[]> list= new ArrayList<>();
@@ -25,15 +32,25 @@
     list.add(item4);
     list.add(item5);
 
-    String[] newItem = (String[]) request.getAttribute("list");
+    String[] newItem = (String[]) request.getAttribute("list"); // GET NEW ITEM ARRAY FROM Item.java
 
     if (newItem!=null){
         String []  itemnew = {newItem[0],newItem[1],newItem[2],newItem[3]};
-        list.add(itemnew);
+        list.add(itemnew); // ADD THE STRING ARRAY TO THE LIST
+%>
+
+ <%--FUNCTION showAlert() WILL EXECUTE IF newItem IS NOT NULL. SO USER WILL KNOW THAT THE ITEM HAS BEEN ADDED--%>
+
+            <script type="application/javascript">
+                showAlert();  // EXECUTE THE FUNCTION showAlert()
+            </script>
+<%
     }
     pageContext.setAttribute("userName",request.getAttribute("userName"));
+    // SET ATTRIBUTE USERNAME TO pageContext
 
     pageContext.setAttribute("itemList",list);
+    // SET ATTRIBUTE itemList to pageContext
 
 %>
 <html>
@@ -48,7 +65,7 @@
 </style>
 </head>
 <body>
-<h1 align="center"><b>hi! <%=pageContext.getAttribute("userName")%></b></h1>
+<h1 align="center"><b>hi! <%=pageContext.getAttribute("userName")%></b></h1>  <%--SHOWS THE USERNAME OF THE USER--%>
 <div style="padding-left: 25%;padding-top: 100px">
     <table border="1">
         <tr>
@@ -57,20 +74,20 @@
             <th>Item Description</th>
             <th>Item Price</th>
         </tr>
-        <c:forEach var="temp" items="${itemList}">
+        <c:forEach var="temp" items="${itemList}"> <%-- FOREACH LOOP TO ADD ITEMS TO THE TABLE --%>
             <tr>
                 <td>${temp[0]}</td>
                 <td>${temp[1]}</td>
                 <td>${temp[2]}</td>
                 <td>${temp[3]}</td>
                 <form action="/item" method="get">
-                    <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]}">View</button></td>
+                    <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]},${temp[3]}">View</button></td>
                 </form>
                 <form action="/item" method="put">
-                    <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]}">update</button></td>
+                    <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]},${temp[3]}">update</button></td>
                 </form>
                 <form action="/item" method="delete">
-                    <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]}">remove</button></td>
+                    <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]},${temp[3]}">remove</button></td>
                 </form>
             </tr>
         </c:forEach>
@@ -90,7 +107,6 @@
     <input type="submit" value="Add Item" style="margin-left: 230px">
     </form>
 </div>
-
 
 </body>
 </html>

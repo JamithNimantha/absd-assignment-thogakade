@@ -52,11 +52,11 @@ public class Item extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String[] list = request.getParameterValues("list");
+        String lst = request.getParameter("list");
+        String[] list = lst.split(",");
 
-        for (int i=0;i<list.length;i++){
-            System.out.println(list[i]);
-        }
+        request.setAttribute("list",list);
+        request.getRequestDispatcher("items.jsp").forward(request,response);
     }
 
     @Override
