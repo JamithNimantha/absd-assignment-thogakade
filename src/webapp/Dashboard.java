@@ -21,7 +21,6 @@ public class Dashboard extends HttpServlet {
         }else {
             request.setAttribute("userName",username);
             request.setAttribute("password",password);
-//            response.sendRedirect("/login");
             request.getRequestDispatcher("/index.jsp").forward(request,response);
         }
     }

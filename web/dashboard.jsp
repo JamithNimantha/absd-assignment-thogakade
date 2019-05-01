@@ -18,6 +18,9 @@
     function showUpdateAlert() {
         alert("Item Updated !")
     }
+    function showDeleteAlert() {
+        alert("Item Removed !")
+    }
 </script>
 <%
 
@@ -40,6 +43,23 @@
     String [] updatedItem = (String[]) request.getAttribute("updatedList"); // GET UPDATED ITEM ARRAY FROM Item.java
 
     String [] upLst = (String[]) request.getAttribute("upLst");  // GET ITEM ARRAY BEFORE UPDATED
+
+    String[] delLst = (String[]) request.getAttribute("delLst");        // GET DELETED ITEM ARRAY
+
+    if (delLst!=null){
+        for (int i =0;i<list.size();i++){
+            if (list.get(i)[0].equals(delLst[0])){
+                list.remove(i);
+                %>
+
+                <script type="application/javascript">
+                    showDeleteAlert();
+                </script>
+
+<%
+            }
+        }
+    }
 
     if (updatedItem!=null){
         String [] itemupdated = {updatedItem[0],updatedItem[1],updatedItem[2],updatedItem[3]};
@@ -113,7 +133,8 @@
                 <form action="updateitem.jsp" method="post">
                     <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]},${temp[3]}">update</button></td>
                 </form>
-                <form action="/item" method="delete">
+                <form action="/item" method="post">
+                    <input type="hidden" name="_METHOD" value="DELETE"/>
                     <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]},${temp[3]}">remove</button></td>
                 </form>
             </tr>
