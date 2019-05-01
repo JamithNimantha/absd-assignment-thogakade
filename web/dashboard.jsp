@@ -94,19 +94,13 @@
     </table>
 </div>
 <br><br><br>
-<div>
-    <form action="/item" method="post">
-    <label for="itemID">    Item ID</label>
-    <input type="text" name="id" id="itemID"><br>
-    <label for="itemName">Item Name</label>
-    <input type="text" name="name" id="itemName"><br>
-    <label for="itemDesc">Item Description</label>
-    <input type="text" name="desc" id="itemDesc"><br>
-    <label for="itemPrice">Item Name</label>
-    <input type="text" name="price" id="itemPrice"><br>
-    <input type="submit" value="Add Item" style="margin-left: 230px">
-    </form>
-</div>
+<button id="btnBack" onclick="openPage()" type="submit" name="conf" value="conf">Add New Item</button>
+
+<script type="text/javascript">
+    function openPage() {
+        window.location.href = "additem.jsp";
+    }
+</script>
 
 </body>
 </html>

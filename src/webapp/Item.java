@@ -23,14 +23,6 @@ public class Item extends HttpServlet {
     private String[] item4= {"ID004","Cream Cracker","Biscuit","180.00"};
     String[] item5 = {"ID005","Maggie","Noodles","70.00"};
 
-//    Item(){
-//        list.add(item);
-//        list.add(item2);
-//        list.add(item3);
-//        list.add(item4);
-//        list.add(item5);
-//    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         String name = request.getParameter("name");
@@ -56,7 +48,7 @@ public class Item extends HttpServlet {
         String[] list = lst.split(",");
 
         request.setAttribute("list",list);
-        request.getRequestDispatcher("items.jsp").forward(request,response);
+        request.getRequestDispatcher("viewitem.jsp").forward(request,response);
     }
 
     @Override
@@ -72,11 +64,11 @@ public class Item extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doDelete(req, resp);
-        String[] list = req.getParameterValues("list");
+        String list = req.getParameter("list");
+        String[] lst = list.split(",");
 
-        for (int i=0;i<list.length;i++){
-            System.out.println(list[i]);
-        }
+        req.setAttribute("delLst",lst);
+        req.getRequestDispatcher("dashboard.jsp").forward(req,resp);
     }
 
 }

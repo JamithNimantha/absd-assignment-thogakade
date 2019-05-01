@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Items</title>
+    <title>View Item</title>
 </head>
 <body>
 
@@ -31,7 +31,6 @@
 </div>
 
 <button id="btnBack" onclick="openPage()" type="submit" name="conf" value="conf">Back to DashBoard</button>
-
 <script type="text/javascript">
     function openPage() {
         window.location.href = "dashboard.jsp";
