@@ -15,6 +15,9 @@
     function showAlert() {
         alert("New Item Added !");
     }
+    function showUpdateAlert() {
+        alert("Item Updated !")
+    }
 </script>
 <%
 
@@ -34,6 +37,28 @@
 
     String[] newItem = (String[]) request.getAttribute("list"); // GET NEW ITEM ARRAY FROM Item.java
 
+    String [] updatedItem = (String[]) request.getAttribute("updatedList"); // GET UPDATED ITEM ARRAY FROM Item.java
+
+    String [] upLst = (String[]) request.getAttribute("upLst");  // GET ITEM ARRAY BEFORE UPDATED
+
+    if (updatedItem!=null){
+        String [] itemupdated = {updatedItem[0],updatedItem[1],updatedItem[2],updatedItem[3]};
+        String [] itemDel ={upLst[0],upLst[1],upLst[2],upLst[3]};
+        for (int i =0 ;i<list.size();i++){
+            if (list.get(i)[0].equals(itemDel[0])){
+                list.remove(i);
+            }
+        }
+        list.add(itemupdated);
+        %>
+
+        <script type="application/javascript">
+            showUpdateAlert();
+        </script>
+
+<%
+    }
+
     if (newItem!=null){
         String []  itemnew = {newItem[0],newItem[1],newItem[2],newItem[3]};
         list.add(itemnew); // ADD THE STRING ARRAY TO THE LIST
@@ -46,6 +71,8 @@
             </script>
 <%
     }
+
+
     pageContext.setAttribute("userName",request.getAttribute("userName"));
     // SET ATTRIBUTE USERNAME TO pageContext
 
@@ -83,7 +110,7 @@
                 <form action="/item" method="get">
                     <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]},${temp[3]}">View</button></td>
                 </form>
-                <form action="/item" method="put">
+                <form action="updateitem.jsp" method="post">
                     <td><button type="submit" name="list" value="${temp[0]},${temp[1]},${temp[2]},${temp[3]}">update</button></td>
                 </form>
                 <form action="/item" method="delete">

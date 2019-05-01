@@ -20,6 +20,7 @@
 <body>
 <div>
     <form action="/item" method="post">
+        <input type="hidden" name="_METHOD" value="POST"/>
         <label for="itemID">    Item ID</label>
         <input type="text" name="id" id="itemID"><br>
         <label for="itemName">Item Name</label>
