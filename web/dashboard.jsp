@@ -93,7 +93,7 @@
     }
 
 
-    pageContext.setAttribute("userName",request.getAttribute("userName"));
+    pageContext.setAttribute("userName",request.getSession().getAttribute("userName"));
     // SET ATTRIBUTE USERNAME TO pageContext
 
     pageContext.setAttribute("itemList",list);
@@ -143,6 +143,10 @@
 </div>
 <br><br><br>
 <button id="btnBack" onclick="openPage()" type="submit" name="conf" value="conf">Add New Item</button>
+
+<form action="/dashboard" method="get">
+    <button style="left: 200px" type="submit" name="_METHOD" value="LOGOUT">Logout</button>
+</form>
 
 <script type="text/javascript">
     function openPage() {

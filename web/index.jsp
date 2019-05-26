@@ -55,6 +55,26 @@
       </style>
   </head>
   <body>
+  <%
+      if (request.getSession().getAttribute("userName")!=null){
+          request.getRequestDispatcher("/dashboard.jsp").forward(request,response);
+      }
+
+      Cookie[] cookies = request.getCookies();
+
+      if(cookies!=null){
+          for (Cookie temp : cookies){
+
+              if ("app.username".equals(temp.getName())){
+                pageContext.setAttribute("userName",temp.getValue());
+              }
+
+              if ("app.password".equals(temp.getName())){
+                  pageContext.setAttribute("password",temp.getValue());
+              }
+          }
+      }
+  %>
   <div class="container">
 
       <form class="form-signin" action="/dashboard" method="post">

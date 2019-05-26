@@ -12,29 +12,19 @@ public class Item extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        if (request.getParameter("_METHOD").equals("PUT")){
-            doPut(request,response);
-        }
-
-        if (request.getParameter("_METHOD").equals("DELETE")){
-            doDelete(request,response);
-        }
-
         if (request.getParameter("_METHOD").equals("POST")) {
 
             String id = request.getParameter("id");
             String name = request.getParameter("name");
             String desc = request.getParameter("desc");
             String price = request.getParameter("price");
-            request.setAttribute("userName",Dashboard.userName);
 
             String[] lst = {id,name,desc,price};
 
             if (!(id.isEmpty() && name.isEmpty() && desc.isEmpty() && price.isEmpty())) { // check parameters are not empty
-                for (int i=0;i<lst.length;i++){
-                    System.out.println(lst[i]);
-                }
+//                for (int i=0;i<lst.length;i++){
+//                    System.out.println(lst[i]);
+//                }
                 request.setAttribute("list",lst);    // set attribute "list" so it can be added to the item list in dashboard.jsp
                 request.getRequestDispatcher("dashboard.jsp").forward(request,response);
             } else {
@@ -64,12 +54,11 @@ public class Item extends HttpServlet {
         String[] lst = {id,name,desc,price};
 
         if (!(id.isEmpty() && name.isEmpty() && desc.isEmpty() && price.isEmpty())) { // check parameters are not empty
-            req.setAttribute("userName",Dashboard.userName);
+
             req.setAttribute("upLst",l);
             req.setAttribute("updatedList",lst);    // set attribute "list" so it can be added to the item list in dashboard.jsp
             req.getRequestDispatcher("dashboard.jsp").forward(req,resp);
         } else {
-            req.setAttribute("userName",Dashboard.userName);
             req.getRequestDispatcher("dashboard.jsp").forward(req,resp);
         }
     }
@@ -79,9 +68,23 @@ public class Item extends HttpServlet {
         String list = req.getParameter("list");
         String[] lst = list.split(",");
 
-        req.setAttribute("userName", Dashboard.userName);
         req.setAttribute("delLst", lst);
         req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
     }
 
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        super.service(req,resp);
+
+        if (req.getParameter("_METHOD").equals("PUT")){
+            doPut(req,resp);
+        }
+
+        if (req.getParameter("_METHOD").equals("DELETE")){
+            doDelete(req,resp);
+        }
+
+
+    }
 }
